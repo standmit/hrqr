@@ -38,12 +38,12 @@ function finalizeCanvas(idToChange) {
 
 // start canvas
 
-function drawHRQR(idToChange, messageContent, size, color, dotColor, outline, background) {
+function drawHRQR(idToChange, messageContent, linewidth, color, dotColor, outline, background) {
 
-    if (size === undefined) {
-        size = 8;
+    if (linewidth === undefined) {
+        linewidth = 8;
     }
-    globalStates.width = globalStates.height = size;
+    globalStates.width = globalStates.height = linewidth;
 
     if (color === undefined) {
         color = "#000000";
