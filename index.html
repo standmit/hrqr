@@ -40,7 +40,7 @@
                     document.getElementsByTagName("body")[0].innerHTML = '<center><div id="svgDiv"></div></center>';
                     document.getElementsByTagName("body")[0].style.minWidth = "0px";
 
-                    var decText = window.location.search.substr(1).split("&");
+                    const decText = window.location.search.substr(1).split("&");
 
                     console.log(decodeURIComponent(decText[1]));
 
@@ -60,7 +60,7 @@
                         drawHRQR("svgDiv", decodeURIComponent(decText[0]), 8, "#000000",tempColor, 20, "#FFFFFF");
                     }
 
-                    var dataHR = document.getElementById("svgDiv").innerHTML;
+                    const dataHR = document.getElementById("svgDiv").innerHTML;
                     document.getElementById("svgDiv").innerHTML  = '<a href="https://itunes.apple.com/us/app/hrqr/id1020790145" target="_parent">' + dataHR + '</a>';
                     // console.log(document.getElementById("svgDiv").innerHTML);
                 }else{
@@ -93,7 +93,7 @@
             };
 
             // Create Base64 Object
-            var Base64={
+            const Base64={
                 _keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
                 encode:function(e){
                     var t="";
@@ -149,8 +149,8 @@
                 _utf8_encode:function(e){
                     e=e.replace(/\r\n/g,"\n");
                     var t="";
-                    for(var n=0;n<e.length;n++){
-                        var r=e.charCodeAt(n);
+                    for(let n=0;n<e.length;n++){
+                        let r=e.charCodeAt(n);
                         if(r<128){
                             t+=String.fromCharCode(r)
                         }else if(r>127&&r<2048){
@@ -222,7 +222,7 @@
                 else
                     drawHRQR("svgDiv",msg, 8, "#000000", dDotColorVisible, 20, "#FFFFFF");
 
-                var svgFile =   Base64.encode(document.getElementById("svgDiv").innerHTML);
+                const svgFile =   Base64.encode(document.getElementById("svgDiv").innerHTML);
 
                 var contentHR = "";
                 if( dotColor === false)
