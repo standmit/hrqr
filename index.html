@@ -1,249 +1,569 @@
 <!DOCTYPE html>
 <html class="html" lang="en-US">
- <head>
+    <head>
+        <script type="text/javascript">
+            if(typeof Muse == "undefined")
+                window.Muse = {};
+            window.Muse.assets = {"required":["jquery-1.8.3.min.js", "museutils.js", "index.css"], "outOfDate":[]};
 
-  <script type="text/javascript">
-   if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required":["jquery-1.8.3.min.js", "museutils.js", "index.css"], "outOfDate":[]};
+            var dDotColor = "#000000";
+            var dDotColorVisible = "hsl(0,100%,30%)";
+            var hColor = 0;
+            var dotColor = false;
 
- var dDotColor = "#000000";
-   var dDotColorVisible = "hsl(0,100%,30%)";
-   var hColor = 0;
-      var dotColor = false;
+        </script>
 
-  </script>
-  
-  <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
-  <meta name="generator" content="2015.0.2.310"/>
-  <title>Home</title>
-  <!-- CSS -->
-  <link rel="stylesheet" type="text/css" href="css/site_global.css?3848068315"/>
-  <link rel="stylesheet" type="text/css" href="css/index.css?308110544" id="pagesheet"/>
-  <!-- Other scripts -->
-  <script type="text/javascript">
-   document.documentElement.className += ' js';
-</script>
-    <!--custom head HTML-->
-  
-     <script src="HRQRLetterdatabase.js"></script>
-     <script src="HRQR.js"></script>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+        <meta name="generator" content="2015.0.2.310"/>
+        <title>Home</title>
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="css/site_global.css?3848068315"/>
+        <link rel="stylesheet" type="text/css" href="css/index.css?308110544" id="pagesheet"/>
+        <!-- Other scripts -->
+        <script type="text/javascript">
+            document.documentElement.className += ' js';
+        </script>
+        <!--custom head HTML-->
 
- <script>
+        <script src="HRQRLetterdatabase.js"></script>
+        <script src="HRQR.js"></script>
 
+        <script>
+            window.onload = function () {
+                if(window.location.search !== ""){
+                    globalStates.width = 6;
+                    globalStates.height = 6;
 
-         window.onload = function () {
+                    globalStates.left = 0;
+                    globalStates.top = 15;
 
-             if(window.location.search !== ""){
+                    document.getElementsByTagName("body")[0].innerHTML = '<center><div id="svgDiv"></div></center>';
+                    document.getElementsByTagName("body")[0].style.minWidth = "0px";
 
-                 globalStates.width = 6;
-                 globalStates.height = 6;
+                    var decText = window.location.search.substr(1).split("&");
 
-                 globalStates.left = 0;
-                 globalStates.top = 15;
+                    console.log(decodeURIComponent(decText[1]));
 
-                  document.getElementsByTagName("body")[0].innerHTML = '<center><div id="svgDiv"></div></center>';
-document.getElementsByTagName("body")[0].style.minWidth = "0px";
+                    if(decText[1] !== undefined){
+                        dotColor = true;
+                    }
 
-                 var decText = window.location.search.substr(1).split("&");
+                    if( dotColor === false)
+                        drawHRQR("svgDiv",decodeURIComponent(decText[0]), 8, "#000000", dDotColor, 20, "#FFFFFF");
+                    else {
+                        var tempColor = "";
+                        if( decodeURIComponent(decText[1]).length>3)
+                            tempColor = decodeURIComponent(decText[1]);
+                        else
+                            tempColor = "hsl("+ decodeURIComponent(decText[1])+",100%,30%)";
 
-                 console.log(decodeURIComponent(decText[1]));
+                        drawHRQR("svgDiv", decodeURIComponent(decText[0]), 8, "#000000",tempColor, 20, "#FFFFFF");
+                    }
 
+                    var dataHR = document.getElementById("svgDiv").innerHTML;
+                    document.getElementById("svgDiv").innerHTML  = '<a href="https://itunes.apple.com/us/app/hrqr/id1020790145" target="_parent">' + dataHR + '</a>';
+                    // console.log(document.getElementById("svgDiv").innerHTML);
+                }else{
+                    drawHRQR("svgDiv","");
 
+                    window.addEventListener('resize', function () {
 
-                 if(decText[1] !== undefined){
-                     dotColor = true;
-                 }
+                        if( dotColor === false)
+                            drawHRQR(
+                                "svgDiv",
+                                document.getElementById("textContent").value,
+                                8,
+                                "#000000",
+                                dDotColor,
+                                20,
+                                "#FFFFFF"
+                            );
+                        else
+                            drawHRQR(
+                                "svgDiv",
+                                document.getElementById("textContent").value,
+                                8,
+                                "#000000",
+                                dDotColorVisible,
+                                20,
+                                "#FFFFFF"
+                            );
+                    });
+                }
+            };
 
-                 if( dotColor === false)
-                 drawHRQR("svgDiv",decodeURIComponent(decText[0]), 8, "#000000", dDotColor, 20, "#FFFFFF");
-                 else {
-                     var tempColor = "";
-                     if( decodeURIComponent(decText[1]).length>3)
-                         tempColor = decodeURIComponent(decText[1]);
-                     else
-                   tempColor = "hsl("+ decodeURIComponent(decText[1])+",100%,30%)";
-
-
-                     drawHRQR("svgDiv", decodeURIComponent(decText[0]), 8, "#000000",tempColor, 20, "#FFFFFF");
-
-                 }
-
-                 var dataHR = document.getElementById("svgDiv").innerHTML;
-                 document.getElementById("svgDiv").innerHTML  = '<a href="https://itunes.apple.com/us/app/hrqr/id1020790145" target="_parent">'+  dataHR  + '</a>';
-                // console.log(document.getElementById("svgDiv").innerHTML);
-
-
-             }else{
-                
-
-
-drawHRQR("svgDiv","");
-
-window.addEventListener('resize', function () {
-
-    if( dotColor === false)
-    drawHRQR("svgDiv",document.getElementById("textContent").value, 8, "#000000", dDotColor, 20, "#FFFFFF");
-else     drawHRQR("svgDiv",document.getElementById("textContent").value, 8, "#000000", dDotColorVisible, 20, "#FFFFFF");
-
-});
-
-
-
-             }
-         };
-
-
-         // Create Base64 Object
-         var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9\+\/\=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/\r\n/g,"\n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
-
-
-         function sliderUpdate(value){
-hColor = value;
-             dDotColorVisible = "hsl("+value+",100%,30%)";
-             onCheckText();
-         }
-
-         function onCheckText() {
-
-            if(document.getElementById("checkbox").checked === true){
-                dotColor = true;
-
-                document.getElementById("dotcolor1").style.visibility = "visible";
-                document.getElementById("dotcolor2").style.visibility = "visible";
-
-            }else {
-
-                dotColor = false;
-                document.getElementById("dotcolor1").style.visibility = "hidden";
-                document.getElementById("dotcolor2").style.visibility = "hidden";
+            // Create Base64 Object
+            var Base64={
+                _keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+                encode:function(e){
+                    var t="";
+                    var n,r,i,s,o,u,a;
+                    var f=0;
+                    e=Base64._utf8_encode(e);
+                    while(f<e.length){
+                        n=e.charCodeAt(f++);
+                        r=e.charCodeAt(f++);
+                        i=e.charCodeAt(f++);
+                        s=n>>2;
+                        o=(n&3)<<4|r>>4;
+                        u=(r&15)<<2|i>>6;
+                        a=i&63;
+                        if(isNaN(r)){
+                            u=a=64
+                        }else if(isNaN(i)){
+                            a=64
+                        }
+                        t=  t+
+                            this._keyStr.charAt(s)+
+                            this._keyStr.charAt(o)+
+                            this._keyStr.charAt(u)+
+                            this._keyStr.charAt(a)
+                    }
+                    return t
+                },
+                decode:function(e){
+                    var t="";
+                    var n,r,i;
+                    var s,o,u,a;
+                    var f=0;
+                    e=e.replace(/[^A-Za-z0-9\+\/\=]/g,"");
+                    while(f<e.length){
+                        s=this._keyStr.indexOf(e.charAt(f++));
+                        o=this._keyStr.indexOf(e.charAt(f++));
+                        u=this._keyStr.indexOf(e.charAt(f++));
+                        a=this._keyStr.indexOf(e.charAt(f++));
+                        n=s<<2|o>>4;
+                        r=(o&15)<<4|u>>2;
+                        i=(u&3)<<6|a;
+                        t=t+String.fromCharCode(n);
+                        if(u!=64){
+                            t=t+String.fromCharCode(r)
+                        }
+                        if(a!=64){
+                            t=t+String.fromCharCode(i)
+                        }
+                    }
+                    t=Base64._utf8_decode(t);
+                    return t
+                },
+                _utf8_encode:function(e){
+                    e=e.replace(/\r\n/g,"\n");
+                    var t="";
+                    for(var n=0;n<e.length;n++){
+                        var r=e.charCodeAt(n);
+                        if(r<128){
+                            t+=String.fromCharCode(r)
+                        }else if(r>127&&r<2048){
+                            t+=String.fromCharCode(r>>6|192);
+                            t+=String.fromCharCode(r&63|128)
+                        }else{
+                            t+=String.fromCharCode(r>>12|224);
+                            t+=String.fromCharCode(r>>6&63|128);
+                            t+=String.fromCharCode(r&63|128)
+                        }
+                    }
+                    return t
+                },
+                _utf8_decode:function(e){
+                    var t="";
+                    var n=0;
+                    var r=c1=c2=0;
+                    while(n<e.length){
+                        r=e.charCodeAt(n);
+                        if(r<128){
+                            t+=String.fromCharCode(r);
+                            n++
+                        }else if(r>191&&r<224){
+                            c2=e.charCodeAt(n+1);
+                            t+=String.fromCharCode((r&31)<<6|c2&63);
+                            n+=2
+                        }else{
+                            c2=e.charCodeAt(n+1);
+                            c3=e.charCodeAt(n+2);
+                            t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);
+                            n+=3
+                        }
+                    }
+                    return t
+                }
             }
-             onInputText();
 
-         }
+            function sliderUpdate(value){
+                hColor = value;
+                dDotColorVisible = "hsl("+value+",100%,30%)";
+                onCheckText();
+            }
 
+            function onCheckText() {
 
-         function onInputText() {
+                if(document.getElementById("checkbox").checked === true){
+                    dotColor = true;
 
-           var msg =  document.getElementById("textContent").value;
+                    document.getElementById("dotcolor1").style.visibility = "visible";
+                    document.getElementById("dotcolor2").style.visibility = "visible";
 
-          msg =  msg.replace(/(\r\n|\n|\r)/gm,"");
+                }else {
 
-if( dotColor === false)
-             drawHRQR("svgDiv",msg, 8, "#000000", dDotColor, 20, "#FFFFFF");
-             else
-    drawHRQR("svgDiv",msg, 8, "#000000", dDotColorVisible, 20, "#FFFFFF");
+                    dotColor = false;
+                    document.getElementById("dotcolor1").style.visibility = "hidden";
+                    document.getElementById("dotcolor2").style.visibility = "hidden";
+                }
+                onInputText();
+            }
 
-             var svgFile =   Base64.encode(document.getElementById("svgDiv").innerHTML);
+            function onInputText() {
 
+                var msg =  document.getElementById("textContent").value;
 
-             var contentHR = "";
-             if( dotColor === false)
-                 contentHR=  'https://hrqr.org/?'+encodeURIComponent(document.getElementById("textContent").value);
-             else
-                 contentHR= 'https://hrqr.org/?'+encodeURIComponent(document.getElementById("textContent").value)+"&"+encodeURI(hColor);
+                msg =  msg.replace(/(\r\n|\n|\r)/gm,"");
 
-             document.getElementById("text6").innerHTML = "Get a SVG Image of your code <a style= 'text-decoration: underline;' download='data.svg' href-lang='image/svg+xml' href='data:image/svg+xml;base64,\n"+svgFile+"'>here</a> or embed it in to your own page:<br><div>" +
-                     '<b>&lt;iframe src=&quot;'+contentHR+'&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; height=&quot;'+(getSize(2)+30)+'&quot; width=&quot;'+ (getSize(2)+30)+'&quot;&gt;&lt;/iframe&gt;</b></div>' +
-                     '<br><br>';
+                if( dotColor === false)
+                    drawHRQR("svgDiv",msg, 8, "#000000", dDotColor, 20, "#FFFFFF");
+                else
+                    drawHRQR("svgDiv",msg, 8, "#000000", dDotColorVisible, 20, "#FFFFFF");
 
+                var svgFile =   Base64.encode(document.getElementById("svgDiv").innerHTML);
 
+                var contentHR = "";
+                if( dotColor === false)
+                    contentHR=  'https://hrqr.org/?'+encodeURIComponent(document.getElementById("textContent").value);
+                else
+                    contentHR= 'https://hrqr.org/?'+encodeURIComponent(document.getElementById("textContent").value)+"&"+encodeURI(hColor);
 
-         }
-
-
-     </script>
-<script>
-   /*  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-     ga('create', 'UA-46215898-3', 'auto');
-     ga('send', 'pageview');*/
-
- </script>
- </head>
- <body>
-
-  <div class="clearfix" id="page"><!-- column -->
-   <div class="position_content" id="page_position_content">
-    <div class="clearfix colelem" id="pu133-5"><!-- group -->
-     <div class="clearfix grpelem" id="u133-5"><!-- content -->
-      <p><a class="nonblock" href="javascript:(function()%7Blocation.href='https://hrqr.org?'+location.href;%7D)();"><span class="Character-Style" id="u133">HRQRify Bookmarklet</span></a><br><br><a class="Character-Style"  href="decoder/index.html">HRQR Decoder</a><br></p>
-     </div>
-     <a class="nonblock nontext grpelem" id="u137" href="javascript:(function()%7Blocation.href='https://hrqr.org?'+location.href;%7D)();"><!-- svg --><img class="svg" src="images/pasted%20svg%20945x287.svg" width="18" height="50" alt="" data-mu-svgfallback="images/pasted%20svg%20945x287_poster_.png"/></a>
-    </div>
-    <div class="clearfix colelem" id="pu83-4"><!-- group -->
-     <div class="clearfix grpelem" id="u83-4"><!-- content -->
-      <p>Human Readable Quick Response Code</p>
-     </div>
-     <img class="svg grpelem" id="u156" src="images/logo.svg" width="168" height="78" alt="" data-mu-svgfallback="images/logo_poster_.png"/><!-- svg -->
-     <div class="grpelem" id="u171"><!-- custom html -->
-       <a class="nonblock nontext clip_frame grpelem" href="https://itunes.apple.com/us/app/hrqr/id1020790145" style="overflow:hidden;background:url(https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg) no-repeat;height:44px;z-index: 29;background-color: transparent;
-	width:150px;-ms-transform: scale(1.3,1.3);-webkit-transform: scale(1.3,1.3);transform: scale(1.3,1.3);"></a>
-</div>
-    </div>
-    <div class="clearfix colelem" id="u201-5"><!-- content -->
-     <p><a class="nonblock" href="bitcoin/">Bitcoin Paper Wallet</a></p>
-    </div>
-    <div class="clearfix colelem" id="pu161"><!-- group -->
-     <img class="svg grpelem" id="u161" src="images/ml.svg" width="34" height="34" alt="" data-mu-svgfallback="images/ml_poster_.png"/><!-- svg -->
-     <div class="clearfix grpelem" id="u90-5"><!-- content -->
-      <p><a class="nonblock" href="http://media.mit.edu"><span id="u90">MIT Media Lab</span></a></p>
-     </div>
-     <img class="svg grpelem" id="u166" src="images/fl.svg" width="32" height="32" alt="" data-mu-svgfallback="images/fl_poster_.png"/><!-- svg -->
-     <div class="clearfix grpelem" id="u98-5"><!-- content -->
-      <p><a class="nonblock" href="http://fluid.media.mit.edu"><span id="u98">Fluid Interfaces Group</span></a></p>
-     </div>
-     <div class="clearfix grpelem" id="u100-5"><!-- content -->
-      <p><a class="nonblock" href="http://www.valentinheun.com"><span class="Character-Style">Created By Valentin Heun</span></a></p>
-     </div>
-     <a class="nonblock nontext clip_frame grpelem" id="u119" href="https://github.com/hrqr/hrqr.github.io/"><!-- image --><img class="block" id="u119_img" src="images/github.png" alt="" width="97" height="36"/></a>
-    </div>
-    <div class="clearfix colelem" id="u75"><!-- column -->
-     <div class="position_content" id="u75_position_content">
-      <div class="clearfix colelem" id="pu144"><!-- group -->
-       <div class="grpelem" id="u144"><!-- custom html -->
-        <textarea  id="textContent" rows="3" cols="70" maxlength="250" border="1px" style="border:1px solid #c5c5c5; background-color:#FFFFFF; width:435px; height:50px;" placeholder="Type your message here to generate the HRQR Code...." oninput="onInputText()"></textarea><br>
-           <input type="checkbox" id="checkbox" name="dotColot" value="dotColor" onchange="onCheckText()"> Better Human Readability   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;    <input id="dotcolor1" type="range" oninput="sliderUpdate(this.value)" value="0" min="0" max="360" step="1"  style="width: 150px; height: 10px; visibility: hidden"/><span id="dotcolor2"  style="visibility: hidden"> Dot-Color</span><br>
-</div>
-       <div class="grpelem" id="u146"><!-- custom html -->
-        <div class="clearfix grpelem" id="text6"><!-- content -->
-<p>Use the <a href="https://itunes.apple.com/us/app/hrqr/id1020790145"  style= "text-decoration: underline;"><b>iOS-App</b></a> or this <a href="/abc"  style= "text-decoration: underline;"><b>Alphabet</b></a> to read your codes.<br> The iOS App will handle messages starting with &quot;http://&quot; as links.</p>
-<p></p>
-</div>
-</div>
-      </div>
-      <div class="colelem" id="u108"><!-- custom html -->
-        <div id="svgDiv"></div>
-</div>
-      <div class="clearfix colelem" id="u153-3"><!-- content -->
-       <p>&nbsp;</p>
-      </div>
-     </div>
-    </div>
-    <div class="colelem" id="u76"><!-- simple frame --></div>
-   </div>
-  </div>
-  <!-- JS includes -->
-  <script type="text/javascript">
-   if (document.location.protocol != 'https:') document.write('\x3Cscript src="http://musecdn.businesscatalyst.com/scripts/4.0/jquery-1.8.3.min.js" type="text/javascript">\x3C/script>');
-</script>
-  <script type="text/javascript">
-   window.jQuery || document.write('\x3Cscript src="scripts/jquery-1.8.3.min.js" type="text/javascript">\x3C/script>');
-</script>
-  <script src="scripts/museutils.js?275725342" type="text/javascript"></script>
-  <!-- Other scripts -->
-  <script type="text/javascript">
-   $(document).ready(function() { try {
-(function(){var a={},b=function(a){if(a.match(/^rgb/))return a=a.replace(/\s+/g,"").match(/([\d\,]+)/gi)[0].split(","),(parseInt(a[0])<<16)+(parseInt(a[1])<<8)+parseInt(a[2]);if(a.match(/^\#/))return parseInt(a.substr(1),16);return 0};(function(){$('link[type="text/css"]').each(function(){var b=($(this).attr("href")||"").match(/\/?css\/([\w\-]+\.css)\?(\d+)/);b&&b[1]&&b[2]&&(a[b[1]]=b[2])})})();(function(){$("body").append('<div class="version" style="display:none; width:1px; height:1px;"></div>');
-for(var c=$(".version"),d=0;d<Muse.assets.required.length;){var f=Muse.assets.required[d],g=f.match(/([\w\-\.]+)\.(\w+)$/),k=g&&g[1]?g[1]:null,g=g&&g[2]?g[2]:null;switch(g.toLowerCase()){case "css":k=k.replace(/\W/gi,"_").replace(/^([^a-z])/gi,"_$1");c.addClass(k);var g=b(c.css("color")),h=b(c.css("background-color"));g!=0||h!=0?(Muse.assets.required.splice(d,1),"undefined"!=typeof a[f]&&(g!=a[f]>>>24||h!=(a[f]&16777215))&&Muse.assets.outOfDate.push(f)):d++;c.removeClass(k);break;case "js":k.match(/^jquery-[\d\.]+/gi)&&
-typeof $!="undefined"?Muse.assets.required.splice(d,1):d++;break;default:throw Error("Unsupported file type: "+g);}}c.remove();if(Muse.assets.outOfDate.length||Muse.assets.required.length)c="Some files on the server may be missing or incorrect. Clear browser cache and try again. If the problem persists please contact website author.",(d=location&&location.search&&location.search.match&&location.search.match(/muse_debug/gi))&&Muse.assets.outOfDate.length&&(c+="\nOut of date: "+Muse.assets.outOfDate.join(",")),d&&Muse.assets.required.length&&(c+="\nMissing: "+Muse.assets.required.join(",")),alert(c)})()})();
-/* body */
-Muse.Utils.transformMarkupToFixBrowserProblemsPreInit();/* body */
-Muse.Utils.prepHyperlinks(true);/* body */
-Muse.Utils.showWidgetsWhenReady();/* body */
-Muse.Utils.transformMarkupToFixBrowserProblems();/* body */
-} catch(e) { if (e && 'function' == typeof e.notify) e.notify(); else Muse.Assert.fail('Error calling selector function:' + e); }});
-</script>
-   </body>
+                document.getElementById("text6").innerHTML = "Get a SVG Image of your code " +
+                    "<a "+
+                        "style= 'text-decoration: underline;' "+
+                        "download='data.svg' "+
+                        "href-lang='image/svg+xml' "+
+                        "href='data:image/svg+xml;base64,\n"+svgFile+"'"+
+                    ">here</a>"+
+                    " or embed it in to your own page:"+
+                    "<br>"+
+                    "<div>"+
+                        "<b>"+
+                        "&lt;iframe "+
+                            "src=&quot;"+contentHR+"&quot; "+
+                            "frameborder=&quot;0&quot; "+
+                            "scrolling=&quot;no&quot; "+
+                            "height=&quot;"+(getHeight()+30)+"&quot; "+
+                            "width=&quot;"+ (getWidth()+30)+"&quot;"+
+                        "&gt;&lt;/iframe&gt;"+
+                        "</b>"+
+                    "</div>"+
+                    "<br><br>";
+            }
+        </script>
+    </head>s
+    <body>
+        <div class="clearfix" id="page"><!-- column -->
+            <div class="position_content" id="page_position_content">
+            <div class="clearfix colelem" id="pu133-5"><!-- group -->
+                <div class="clearfix grpelem" id="u133-5"><!-- content -->
+                    <p>
+                        <a
+                            class="nonblock"
+                            href="javascript:(function()%7Blocation.href='https://hrqr.org?'+location.href;%7D)();"
+                        >
+                            <span class="Character-Style" id="u133">HRQRify Bookmarklet</span>
+                        </a>
+                        <br>
+                        <br>
+                        <a class="Character-Style"  href="decoder/index.html">HRQR Decoder</a>
+                        <br>
+                    </p>
+                </div>
+                <a
+                    class="nonblock nontext grpelem"
+                    id="u137"
+                    href="javascript:(function()%7Blocation.href='https://hrqr.org?'+location.href;%7D)();"
+                >
+                    <!-- svg -->
+                    <img
+                        class="svg"
+                        src="images/pasted%20svg%20945x287.svg"
+                        width="18"
+                        height="50"
+                        alt=""
+                        data-mu-svgfallback="images/pasted%20svg%20945x287_poster_.png"
+                    />
+                </a>
+            </div>
+            <div class="clearfix colelem" id="pu83-4"><!-- group -->
+                <div class="clearfix grpelem" id="u83-4"><!-- content -->
+                    <p>Human Readable Quick Response Code</p>
+                </div>
+                <img
+                    class="svg grpelem"
+                    id="u156"
+                    src="images/logo.svg"
+                    width="168"
+                    height="78"
+                    alt=""
+                    data-mu-svgfallback="images/logo_poster_.png"
+                /><!-- svg -->
+                <div class="grpelem" id="u171"><!-- custom html -->
+                    <a
+                        class="nonblock nontext clip_frame grpelem"
+                        href="https://itunes.apple.com/us/app/hrqr/id1020790145"
+                        style="
+                            overflow:hidden;
+                            background:url(
+                                https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg
+                            ) no-repeat;
+                            height:44px;
+                            z-index: 29;
+                            background-color: transparent;
+                            width:150px;
+                            -ms-transform: scale(1.3,1.3);
+                            -webkit-transform: scale(1.3,1.3);
+                            transform: scale(1.3,1.3);
+                        "
+                    ></a>
+                </div>
+            </div>
+            <div class="clearfix colelem" id="u201-5"><!-- content -->
+                <p><a class="nonblock" href="bitcoin/">Bitcoin Paper Wallet</a></p>
+            </div>
+            <div class="clearfix colelem" id="pu161"><!-- group -->
+                <img
+                    class="svg grpelem"
+                    id="u161"
+                    src="images/ml.svg"
+                    width="34"
+                    height="34"
+                    alt=""
+                    data-mu-svgfallback="images/ml_poster_.png"
+                /><!-- svg -->
+                <div class="clearfix grpelem" id="u90-5"><!-- content -->
+                    <p>
+                        <a class="nonblock" href="http://media.mit.edu">
+                            <span id="u90">MIT Media Lab</span>
+                        </a>
+                    </p>
+                </div>
+                <img
+                    class="svg grpelem"
+                    id="u166"
+                    src="images/fl.svg"
+                    width="32"
+                    height="32"
+                    alt=""
+                    data-mu-svgfallback="images/fl_poster_.png"
+                /><!-- svg -->
+                <div class="clearfix grpelem" id="u98-5"><!-- content -->
+                    <p>
+                        <a class="nonblock" href="http://fluid.media.mit.edu">
+                            <span id="u98">Fluid Interfaces Group</span>
+                        </a>
+                    </p>
+                </div>
+                <div class="clearfix grpelem" id="u100-5"><!-- content -->
+                    <p>
+                        <a class="nonblock" href="http://www.valentinheun.com">
+                            <span class="Character-Style">Created By Valentin Heun</span>
+                        </a>
+                    </p>
+                </div>
+                <a
+                        class="nonblock nontext clip_frame grpelem"
+                        id="u119"
+                        href="https://github.com/hrqr/hrqr.github.io/"
+                >
+                    <!-- image -->
+                    <img class="block" id="u119_img" src="images/github.png" alt="" width="97" height="36"/>
+                </a>
+            </div>
+            <div class="clearfix colelem" id="u75"><!-- column -->
+                <div class="position_content" id="u75_position_content">
+                    <div class="clearfix colelem" id="pu144"><!-- group -->
+                        <div class="grpelem" id="u144"><!-- custom html -->
+                            <textarea
+                                id="textContent"
+                                rows="3"
+                                cols="70"
+                                maxlength="250"
+                                border="1px"
+                                style="
+                                    border:1px solid #c5c5c5;
+                                    background-color:#FFFFFF;
+                                    width:435px;
+                                    height:50px;
+                                "
+                                placeholder="Type your message here to generate the HRQR Code...."
+                                oninput="onInputText()"
+                            ></textarea>
+                            <br>
+                            <input
+                                type="checkbox"
+                                id="checkbox"
+                                name="dotColot"
+                                value="dotColor"
+                                onchange="onCheckText()"
+                            />
+                            Better Human Readability   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;
+                            <input
+                                id="dotcolor1"
+                                type="range"
+                                oninput="sliderUpdate(this.value)"
+                                value="0"
+                                min="0"
+                                max="360"
+                                step="1"
+                                style="width: 150px; height: 10px; visibility: hidden"
+                            />
+                            <span id="dotcolor2"  style="visibility: hidden"> Dot-Color</span>
+                            <br>
+                        </div>
+                        <div class="grpelem" id="u146"><!-- custom html -->
+                            <div class="clearfix grpelem" id="text6"><!-- content -->
+                                <p>
+                                    Use the
+                                    <a
+                                            href="https://itunes.apple.com/us/app/hrqr/id1020790145"
+                                            style= "text-decoration: underline;"
+                                    >
+                                        <b>iOS-App</b>
+                                    </a>
+                                    or this
+                                    <a href="/abc" style= "text-decoration: underline;">
+                                        <b>Alphabet</b>
+                                    </a>
+                                    to read your codes.
+                                    <br>
+                                    The iOS App will handle messages starting with &quot;http://&quot; as links.
+                                </p>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="colelem" id="u108"><!-- custom html -->
+                        <div id="svgDiv"></div>
+                    </div>
+                    <div class="clearfix colelem" id="u153-3"><!-- content -->
+                        <p>&nbsp;</p>
+                    </div>
+                </div>
+            </div>
+            <div class="colelem" id="u76"><!-- simple frame --></div>
+        </div>
+        </div>
+        <!-- JS includes -->
+        <script type="text/javascript">
+            if (document.location.protocol != 'https:')
+                document.write(
+                    '\x3Cscript '+
+                    'src="http://musecdn.businesscatalyst.com/scripts/4.0/jquery-1.8.3.min.js" '+
+                    'type="text/javascript"'+
+                    '>\x3C/script>'
+                );
+        </script>
+        <script type="text/javascript">
+            window.jQuery || document.write(
+                '\x3Cscript src="scripts/jquery-1.8.3.min.js" type="text/javascript">\x3C/script>'
+            );
+        </script>
+        <script src="scripts/museutils.js?275725342" type="text/javascript"></script>
+        <!-- Other scripts -->
+        <script type="text/javascript">
+            $(document).ready(
+                function() {
+                    try {
+                        (
+                            function(){
+                                var a={};
+                                var b=function(a){
+                                    if(a.match(/^rgb/))
+                                        return  a=a.replace(/\s+/g,"").match(/([\d\,]+)/gi)[0].split(","),
+                                                (parseInt(a[0])<<16)+(parseInt(a[1])<<8)+parseInt(a[2]);
+                                    if(a.match(/^\#/))
+                                        return parseInt(a.substr(1),16);
+                                    return 0
+                                };
+                                (
+                                    function(){
+                                        $('link[type="text/css"]').each(
+                                            function(){
+                                                var b=($(this).attr("href")||"").match(/\/?css\/([\w\-]+\.css)\?(\d+)/);
+                                                b&&b[1]&&b[2]&&(a[b[1]]=b[2])
+                                            }
+                                        )
+                                    }
+                                )();
+                                (
+                                    function(){
+                                        $("body").append(
+                                            '<div class="version" style="display:none; width:1px; height:1px;"></div>'
+                                        );
+                                        for(var c=$(".version"),d=0;d<Muse.assets.required.length;){
+                                            var f=Muse.assets.required[d],
+                                                g=f.match(/([\w\-\.]+)\.(\w+)$/),
+                                                k=g&&g[1]?g[1]:null,
+                                                g=g&&g[2]?g[2]:null;
+                                            switch(g.toLowerCase()){
+                                                case "css":
+                                                    k=k.replace(/\W/gi,"_").replace(/^([^a-z])/gi,"_$1");
+                                                    c.addClass(k);
+                                                    var g=b(c.css("color")),h=b(c.css("background-color"));
+                                                    g!= 0
+                                                        ||
+                                                        h!=0?(
+                                                            Muse.assets.required.splice(d,1),
+                                                            "undefined"!=typeof a[f]
+                                                            &&
+                                                            (g!=a[f]>>>24||h!=(a[f]&16777215))
+                                                            &&
+                                                            Muse.assets.outOfDate.push(f)
+                                                        ):d++;
+                                                    c.removeClass(k);
+                                                    break;
+                                                case "js":
+                                                    k.match(/^jquery-[\d\.]+/gi)
+                                                    &&
+                                                    typeof $!="undefined"?Muse.assets.required.splice(d,1):d++;
+                                                    break;
+                                                default:
+                                                    throw Error("Unsupported file type: "+g);
+                                            }
+                                        }
+                                        c.remove();
+                                        if(Muse.assets.outOfDate.length||Muse.assets.required.length)
+                                            c="Some files on the server may be missing or incorrect. Clear browser cache and try again. If the problem persists please contact website author.",
+                                                (
+                                                    d=location
+                                                    &&
+                                                    location.search
+                                                    &&
+                                                    location.search.match
+                                                    &&
+                                                    location.search.match(/muse_debug/gi)
+                                                )
+                                                &&
+                                                Muse.assets.outOfDate.length
+                                                &&
+                                                (c+="\nOut of date: "+Muse.assets.outOfDate.join(",")),
+                                                d
+                                                &&
+                                                Muse.assets.required.length
+                                                &&
+                                                (c+="\nMissing: "+Muse.assets.required.join(",")),
+                                                alert(c);
+                                    }
+                                )()
+                            }
+                        )();
+                        /* body */
+                        Muse.Utils.transformMarkupToFixBrowserProblemsPreInit();/* body */
+                        Muse.Utils.prepHyperlinks(true);/* body */
+                        Muse.Utils.showWidgetsWhenReady();/* body */
+                        Muse.Utils.transformMarkupToFixBrowserProblems();/* body */
+                    } catch(e) {
+                        if (e && 'function' == typeof e.notify)
+                            e.notify();
+                        else
+                            Muse.Assert.fail('Error calling selector function:' + e);
+                    }
+                }
+            );
+        </script>
+    </body>
 </html>
