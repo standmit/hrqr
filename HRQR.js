@@ -80,11 +80,11 @@ function drawHRQR(idToChange, messageContent, linewidth, color, dotColor, outlin
 
     globalStates.textTrimLength = 0;
 
-    for (var i = 0; i < globalStates.text.length; i++) {
+    for (let i = 0; i < globalStates.text.length; i++) {
 
-        for (var r = globalStates.searchDepth; r >= 0; r--) {
-            var letterTemp = "";
-            for (var k = r; k >= 0; k--) {
+        for (let r = globalStates.searchDepth; r >= 0; r--) {
+            let letterTemp = "";
+            for (let k = r; k >= 0; k--) {
                 letterTemp = globalStates.text[k + i] + letterTemp;
             }
 
@@ -118,7 +118,7 @@ function drawHRQR(idToChange, messageContent, linewidth, color, dotColor, outlin
         //countTwo = 1;
     }
 
-    var amountOfLetters = globalStates.colums * (globalStates.colums / 2);
+    const amountOfLetters = globalStates.colums * (globalStates.colums / 2);
 
     while (globalStates.textTrimLength < amountOfLetters) {
         globalStates.text = globalStates.text + randomLetter();
@@ -127,7 +127,7 @@ function drawHRQR(idToChange, messageContent, linewidth, color, dotColor, outlin
 
     }
 
-    var rowColSize = ((globalStates.colums * globalStates.width * 4)) + (2 * globalStates.left) - globalStates.width;
+    const rowColSize = ((globalStates.colums * globalStates.width * 4)) + (2 * globalStates.left) - globalStates.width;
 
 
     globalStates.htmlText = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width = "' + rowColSize + 'px" height = "' + rowColSize + 'px"  style="background: ' + globalStates.background + '">\n';
@@ -141,13 +141,13 @@ function writeLetters() {
     var letter = "";
     var textLength = globalStates.text.length;
     globalStates.countingLine = 0;
-    for (var i = 0; i < globalStates.text.length; i++) {
+    for (let i = 0; i < globalStates.text.length; i++) {
 
         letter = globalStates.text[i];
 
-        for (var r = globalStates.searchDepth; r >= 0; r--) {
-            var letterTemp = "";
-            for (var k = r; k >= 0; k--) {
+        for (let r = globalStates.searchDepth; r >= 0; r--) {
+            let letterTemp = "";
+            for (let k = r; k >= 0; k--) {
                 letterTemp = globalStates.text[k + i] + letterTemp;
             }
 
@@ -171,7 +171,7 @@ function writeLetters() {
             globalStates.countingLine = 0;
         }
 
-        var size = letterSize(i);
+        const size = letterSize(i);
         renderLetters(letter, size);
 
         if (letter !== " " && globalStates.text[i + 1] !== " " && i + 1 < globalStates.text.length) {
@@ -206,7 +206,7 @@ function writeLetters() {
         if (letter in globalStates.database) {
             if (letter !== " ") {
 
-                var countsize = 0;
+                let countsize = 0;
                 var sideB, sideA;
 
                 if ("small" in letterDatabase[letter]) {
@@ -222,7 +222,7 @@ function writeLetters() {
                 }
                 globalStates.countingLine = globalStates.countingLine + countsize;
             }
-            for (var w = 0; w < sideA.length; w++) {
+            for (let w = 0; w < sideA.length; w++) {
                 if (sideA[w] === 0) {
                     renderDot(4, w);
                 }
@@ -347,7 +347,7 @@ function renderDot(vertical, horizontal, possition) {
 function renderLetters(thisLetter, size) {
 
     if (thisLetter in globalStates.database) {
-        var lineHeight = 7;
+        const lineHeight = 7;
         var shapeLength = 0;
         var shape = [];
         var shapePossition = 0;
@@ -362,10 +362,10 @@ function renderLetters(thisLetter, size) {
 
         globalStates.lineCounter = 0;
 
-        for (var i = 0; i < shapeLength; i++) {
+        for (let i = 0; i < shapeLength; i++) {
             if (shape[i] === 1) {
-                var xx = globalStates.top + ((globalStates.height * (globalStates.lineCounter + shapePossition)) + (globalStates.line * ((globalStates.pixelsPerLetter + 1) * globalStates.height)));
-                var yy = globalStates.left + (globalStates.width * globalStates.rowCounter);
+                const xx = globalStates.top + ((globalStates.height * (globalStates.lineCounter + shapePossition)) + (globalStates.line * ((globalStates.pixelsPerLetter + 1) * globalStates.height)));
+                const yy = globalStates.left + (globalStates.width * globalStates.rowCounter);
                 globalStates.htmlText =
                     globalStates.htmlText + '<rect x="' + yy + '" y="' + xx + '" width="' +
                     globalStates.width + '" height="' +
@@ -383,7 +383,7 @@ function renderLetters(thisLetter, size) {
     }
 }
 
-var crcTable = [0x0000, 0x1021, 0x2042, 0x3063, 0x4084, 0x50a5,
+const crcTable = [0x0000, 0x1021, 0x2042, 0x3063, 0x4084, 0x50a5,
     0x60c6, 0x70e7, 0x8108, 0x9129, 0xa14a, 0xb16b,
     0xc18c, 0xd1ad, 0xe1ce, 0xf1ef, 0x1231, 0x0210,
     0x3273, 0x2252, 0x52b5, 0x4294, 0x72f7, 0x62d6,
@@ -453,7 +453,7 @@ function itob62(i) {
     var b32 = "";
     do
     {
-        var d = Math.floor(u % 62);
+        const d = Math.floor(u % 62);
         if (d < 10) {
 
             b32 = String.fromCharCode('0'.charCodeAt(0) + d) + b32;
