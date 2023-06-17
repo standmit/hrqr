@@ -350,7 +350,6 @@ function renderLetters(thisLetter, size) {
         const lineHeight = 7;
         var shapeLength = 0;
         var shape = [];
-        var shapePossition = 0;
         if (size === "big" || size === "small") {
             shapeLength = letterDatabase[thisLetter].big.shape.length;
             shape = letterDatabase[thisLetter].big.shape
@@ -364,7 +363,7 @@ function renderLetters(thisLetter, size) {
 
         for (let i = 0; i < shapeLength; i++) {
             if (shape[i] === 1) {
-                const xx = globalStates.top + ((globalStates.height * (globalStates.lineCounter + shapePossition)) + (globalStates.line * ((globalStates.pixelsPerLetter + 1) * globalStates.height)));
+                const xx = globalStates.top + ((globalStates.height * globalStates.lineCounter) + (globalStates.line * ((globalStates.pixelsPerLetter + 1) * globalStates.height)));
                 const yy = globalStates.left + (globalStates.width * globalStates.rowCounter);
                 globalStates.htmlText =
                     globalStates.htmlText + '<rect x="' + yy + '" y="' + xx + '" width="' +
