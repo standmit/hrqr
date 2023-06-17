@@ -43,8 +43,6 @@
                   document.getElementsByTagName("body")[0].innerHTML = '<center><div id="svgDiv"></div></center>';
 document.getElementsByTagName("body")[0].style.minWidth = "0px";
 
-                // drawHRQR("svgDiv",decodeURI(window.location.search.substr(1)));
-
                  var decText = window.location.search.substr(1).split("&");
 
                  console.log(decodeURIComponent(decText[1]));
@@ -82,7 +80,6 @@ drawHRQR("svgDiv","");
 
 window.addEventListener('resize', function () {
 
-   // drawHRQR("svgDiv",document.getElementById("textContent").value);
     if( dotColor === false)
     drawHRQR("svgDiv",document.getElementById("textContent").value, 8, "#000000", dDotColor, 20, "#FFFFFF");
 else     drawHRQR("svgDiv",document.getElementById("textContent").value, 8, "#000000", dDotColorVisible, 20, "#FFFFFF");
@@ -130,7 +127,6 @@ hColor = value;
 
           msg =  msg.replace(/(\r\n|\n|\r)/gm,"");
 
-            // drawHRQR("svgDiv", msg);
 if( dotColor === false)
              drawHRQR("svgDiv",msg, 8, "#000000", dDotColor, 20, "#FFFFFF");
              else
@@ -138,7 +134,6 @@ if( dotColor === false)
 
              var svgFile =   Base64.encode(document.getElementById("svgDiv").innerHTML);
 
-           //  console.log(svgFile);
 
              var contentHR = "";
              if( dotColor === false)
