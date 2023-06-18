@@ -1,296 +1,143 @@
-.version.index /* version checker */
-{
-	color: #000012;
-	background-color: #5D64D0;
+* {
+    font-family: Helvetica, Helvetica Neue, Arial, sans-serif;
 }
 
-.html
-{
-	background-color: #FFFFFF;
+a {
+    color: #191919;
+    font-weight: bold;
 }
 
-#page
-{
-	z-index: 1;
-	width: 960px;
-	min-height: 500px;
-	background-image: none;
-	border-style: none;
-	border-color: #000000;
-	background-color: transparent;
-	margin-left: auto;
-	margin-right: auto;
+body {
+    margin-top: 0px;
 }
 
-#page_position_content
-{
-	padding-bottom: 62px;
-	width: 0.01px;
+#content {
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#pu133-5
-{
-	width: 0.01px;
-	margin-left: 716px;
+#header {
+    overflow: hidden;
+    position: relative;
 }
 
-#u133-5
-{
-	z-index: 26;
-	width: 133px;
-	min-height: 21px;
-	background-color: transparent;
-	text-align: right;
-	font-size: 12px;
-	line-height: 14px;
-	position: relative;
-	margin-right: -10000px;
-	margin-top: 15px;
+#links_block {
+    float: right;
 }
 
-#u133
-{
-	text-decoration: underline;
-	font-weight: normal;
+#bookmark_img {
+    float: right;
+    width: 18px;
+    height: 50px;
+    margin-left: 15px;
 }
 
-#u137
-{
-	z-index: 31;
-	overflow: hidden;
-	position: relative;
-	width: 18px;
-	margin-right: -10000px;
-	left: 150px;
+#links {
+    list-style-type: none;
+    text-align: right;
+    margin-top: 0px;
 }
 
-#pu83-4
-{
-	width: 0.01px;
-	margin-left: 20px;
-	margin-top: 6px;
+#links > li {
+    margin-top: 10px;
 }
 
-#u83-4
-{
-	z-index: 4;
-	width: 565px;
-	min-height: 30px;
-	background-color: transparent;
-	font-size: 25px;
-	line-height: 30px;
-	font-family: Helvetica, Helvetica Neue, Arial, sans-serif;
-	position: relative;
-	margin-right: -10000px;
-	margin-top: 52px;
-	left: 183px;
+#links > li > a {
+    text-decoration: none;
 }
 
-#u156
-{
-	z-index: 37;
-	position: relative;
-	margin-right: -10000px;
+#hrqr_link > a {
+    font-weight: normal;
+    font-size: 12px;
+    text-decoration: underline !important;
 }
 
-#u171
-{
-	z-index: 40;
-	width: 197px;
-	min-height: 67px;
-	border-style: none;
-	border-color: transparent;
-	background-color: transparent;
-	position: relative;
-	margin-right: -10000px;
-	margin-top: 11px;
-	left: 689px;
+#decoder_link {
+    font-size: 12px;
 }
 
-#u201-5
-{
-	z-index: 41;
-	width: 195px;
-	min-height: 26px;
-	background-color: transparent;
-	font-size: 20px;
-	line-height: 24px;
-	font-weight: bold;
-	margin-left: 710px;
-	top: -3px;
-	margin-bottom: -3px;
-	position: relative;
+#apple_link > a > img {
+    width: 175px;
+    margin-top: 6px;
+    margin-bottom: 10px;
 }
 
-#pu161
-{
-	width: 0.01px;
-	margin-left: 20px;
-	margin-top: 14px;
+#bitcoid_link {
+    font-size: 18px;
 }
 
-#u161
-{
-	z-index: 38;
-	position: relative;
-	margin-right: -10000px;
+#github_link {
+    text-align: left;
+    margin-left: -6px;
 }
 
-#u90-5
-{
-	z-index: 8;
-	width: 122px;
-	min-height: 13px;
-	background-color: transparent;
-	position: relative;
-	margin-right: -10000px;
-	margin-top: 20px;
-	left: 42px;
+#title {
+    font-size: 25px;
+    position: absolute;
+    bottom: 0px;
+    vertical-align: bottom;
 }
 
-#u166
-{
-	z-index: 39;
-	position: relative;
-	margin-right: -10000px;
-	margin-top: 1px;
-	left: 176px;
+#title > img {
+    width: 168px;
+    height: 78px;
 }
 
-#u98-5
-{
-	z-index: 13;
-	width: 151px;
-	min-height: 13px;
-	background-color: transparent;
-	position: relative;
-	margin-right: -10000px;
-	margin-top: 20px;
-	left: 220px;
+#title > p {
+    display: inline-block;
+    margin-left: 10px;
 }
 
-#u90,#u98
-{
-	text-decoration: none;
-	color: #191919;
-	font-family: Helvetica, Helvetica Neue, Arial, sans-serif;
-	font-weight: bold;
+#credential {
+    overflow: hidden;
+    position: relative;
+    margin-top: 10px;
+    padding-left: 0px;
 }
 
-#u100-5
-{
-	z-index: 18;
-	width: 204px;
-	min-height: 13px;
-	background-color: transparent;
-	position: relative;
-	margin-right: -10000px;
-	margin-top: 19px;
-	left: 411px;
+#credential > li {
+    display: inline;
+    margin-right: 30px;
+    font-size: 14px;
+    height: 32px;
 }
 
-#u119
-{
-	z-index: 24;
-	width: 97px;
-	border-style: none;
-	background-color: transparent;
-	position: relative;
-	margin-right: -10000px;
-	margin-top: 1px;
-	left: 678px;
+#credential > li > * {
+    margin-right: 10px;
 }
 
-#u75
-{
-	z-index: 2;
-	width: 920px;
-	background-color: transparent;
-	padding-bottom: 0px;
-	margin-left: 20px;
-	margin-top: 96px;
-	position: relative;
+#credential > li > img {
+    height: 34px;
 }
 
-#u75_position_content
-{
-	margin-top: -45px;
-	padding-bottom: 330px;
+#credential > li > a {
+    text-decoration: none;
 }
 
-#pu144
-{
-	width: 0.01px;
+#main {
+    margin-top: 10px;
+    font-size: 14px;
+    
 }
 
-#u144
-{
-	z-index: 32;
-	width: 442px;
-	min-height: 100px;
-	border-style: none;
-	border-color: transparent;
-	background-color: transparent;
-	position: relative;
-	margin-right: -10000px;
+#inputForm {
+    overflow: hidden;
+    position: relative;
 }
 
-#u146
-{
-	z-index: 33;
-	width: 463px;
-	min-height: 100px;
-	border-style: none;
-	border-color: transparent;
-	background-color: transparent;
-	position: relative;
-	margin-right: -10000px;
-	left: 457px;
+#textControl {
+    float: left;
+    margin-right: 20px;
 }
 
-#u108
-{
-	z-index: 23;
-	width: 200px;
-	min-height: 100px;
-	border-style: none;
-	border-color: transparent;
-	background-color: transparent;
-	margin-top: 25px;
-	position: relative;
+#textControl > * {
+    outline: none;
 }
 
-#u153-3
-{
-	z-index: 34;
-	width: 375px;
-	min-height: 164px;
-	background-color: transparent;
-	margin-top: 48px;
-	position: relative;
+#textContent {
+    width: 435px;
+    height: 50px;
+    border: 1px solid #c5c5c5;
+    font-size: inherit;
 }
-
-#u76
-{
-	z-index: 3;
-	width: 361px;
-	height: 45px;
-	margin-left: 20px;
-	margin-top: 93px;
-	position: relative;
-}
-
-.ie #u76
-{
-	background-color: #FFFFFF;
-	opacity: 0.01;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";
-	filter: alpha(opacity=1);
-}
-
-body
-{
-	position: relative;
-	min-width: 960px;
-}
-
