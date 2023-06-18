@@ -8,8 +8,8 @@ var globalStates = {
     rowCounter: 0,
     searchDepth: 17,
     line: 2,
-    width: 8,
-    height: 8,
+    dotWidth: 8,
+    dotHeight: 8,
     pixelsPerLetter: 7,
     left: 20,
     top: 20,
@@ -23,9 +23,9 @@ var globalStates = {
 };
 
 function getSize(minus) {
-    return (((globalStates.colums - 1) * 4) + 3) * globalStates.width - minus;
-
+    return (((globalStates.colums - 1) * 4) + 3) * globalStates.dotWidth - minus;
 }
+
 
 function randomLetter() {
     return itob62(crc16(globalStates.text)).substring(0, 1);
@@ -43,7 +43,7 @@ function drawHRQR(idToChange, messageContent, linewidth, color, dotColor, outlin
     if (linewidth === undefined) {
         linewidth = 8;
     }
-    globalStates.width = globalStates.height = linewidth;
+    globalStates.dotWidth = globalStates.dotHeight = linewidth;
 
     if (color === undefined) {
         color = "#000000";
@@ -127,7 +127,7 @@ function drawHRQR(idToChange, messageContent, linewidth, color, dotColor, outlin
 
     }
 
-    const rowColSize = ((globalStates.colums * globalStates.width * 4)) + (2 * globalStates.left) - globalStates.width;
+    const rowColSize = ((globalStates.colums * globalStates.dotWidth * 4)) + (2 * globalStates.left) - globalStates.width;
 
 
     globalStates.htmlText = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width = "' + rowColSize + 'px" height = "' + rowColSize + 'px"  style="background: ' + globalStates.background + '">\n';
@@ -329,18 +329,18 @@ function renderDot(vertical, horizontal, possition) {
     var xx, yy;
 
     if (possition) {
-        xx = globalStates.top + (globalStates.height * 7 + (globalStates.line * ((globalStates.pixelsPerLetter + 1) * globalStates.height)));
-        yy = globalStates.left + (globalStates.width * (globalStates.rowCounter - horizontal - 2)); // - vertical
+        xx = globalStates.top + (globalStates.dotHeight * 7 + (globalStates.line * ((globalStates.pixelsPerLetter + 1) * globalStates.dotHeight)));
+        yy = globalStates.left + (globalStates.dotWidth * (globalStates.rowCounter - horizontal - 2)); // - vertical
     }
     else {
-        xx = globalStates.top + (globalStates.height * horizontal + (globalStates.line * ((globalStates.pixelsPerLetter + 1) * globalStates.height)));
-        yy = globalStates.left + (globalStates.width * (globalStates.rowCounter - vertical));
+        xx = globalStates.top + (globalStates.dotHeight * horizontal + (globalStates.line * ((globalStates.pixelsPerLetter + 1) * globalStates.dotHeight)));
+        yy = globalStates.left + (globalStates.dotWidth * (globalStates.rowCounter - vertical));
     }
 
     globalStates.htmlText =
         globalStates.htmlText + '<rect x="' + yy + '" y="' + xx + '" width="' +
-        globalStates.width + '" height="' +
-        globalStates.height + '" style="fill:' +
+        globalStates.dotWidth + '" height="' +
+        globalStates.dotHeight + '" style="fill:' +
         globalStates.dotColor + '" />\n';
 }
 
@@ -363,12 +363,12 @@ function renderLetters(thisLetter, size) {
 
         for (let i = 0; i < shapeLength; i++) {
             if (shape[i] === 1) {
-                const xx = globalStates.top + ((globalStates.height * globalStates.lineCounter) + (globalStates.line * ((globalStates.pixelsPerLetter + 1) * globalStates.height)));
-                const yy = globalStates.left + (globalStates.width * globalStates.rowCounter);
+                const xx = globalStates.top + ((globalStates.dotHeight * globalStates.lineCounter) + (globalStates.line * ((globalStates.pixelsPerLetter + 1) * globalStates.dotHeight)));
+                const yy = globalStates.left + (globalStates.dotWidth * globalStates.rowCounter);
                 globalStates.htmlText =
                     globalStates.htmlText + '<rect x="' + yy + '" y="' + xx + '" width="' +
-                    globalStates.width + '" height="' +
-                    globalStates.height + '" style="fill:' +
+                    globalStates.dotWidth + '" height="' +
+                    globalStates.dotHeight + '" style="fill:' +
                     globalStates.color + '" />\n'
             }
             globalStates.lineCounter++;
