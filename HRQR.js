@@ -4,7 +4,6 @@
  */
 var globalStates = {
     database: letterDatabase,
-    lineCounter: 0,
     rowCounter: 0,
     searchDepth: 17,
     line: 2,
@@ -104,7 +103,6 @@ function drawHRQR(idToChange, messageContent, linewidth, color, dotColor, outlin
     }
 
     globalStates.rowCounter = 0;
-    globalStates.lineCounter = 0;
     globalStates.line = 0;
 
     // here it needs to have the right size
@@ -358,11 +356,11 @@ function renderLetters(thisLetter, size) {
             shape = letterDatabase[thisLetter].small.shape
         }
 
-        globalStates.lineCounter = 0;
+        let lineCounter = 0;
 
         for (let i = 0; i < shapeLength; i++) {
             if (shape[i] === 1) {
-                const xx = globalStates.top + ((globalStates.dotHeight * globalStates.lineCounter) + (globalStates.line * ((globalStates.pixelsPerLetter + 1) * globalStates.dotHeight)));
+                const xx = globalStates.top + ((globalStates.dotHeight * lineCounter) + (globalStates.line * ((globalStates.pixelsPerLetter + 1) * globalStates.dotHeight)));
                 const yy = globalStates.left + (globalStates.dotWidth * globalStates.rowCounter);
                 globalStates.htmlText =
                     globalStates.htmlText + '<rect x="' + yy + '" y="' + xx + '" width="' +
@@ -370,9 +368,9 @@ function renderLetters(thisLetter, size) {
                     globalStates.dotHeight + '" style="fill:' +
                     globalStates.color + '" />\n'
             }
-            globalStates.lineCounter++;
-            if (globalStates.lineCounter >= lineHeight) {
-                globalStates.lineCounter = 0;
+            lineCounter++;
+            if (lineCounter >= lineHeight) {
+                lineCounter = 0;
                 globalStates.rowCounter++;
             }
         }
