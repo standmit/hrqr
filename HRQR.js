@@ -76,7 +76,7 @@ function drawHRQR(idToChange, messageContent, linewidth, color, dotColor, outlin
 
     // reading the length of the document
 
-    globalStates.textTrimLength = 0;
+    var textTrimLength = 0;
 
     for (let i = 0; i < globalStates.text.length; i++) {
 
@@ -89,11 +89,11 @@ function drawHRQR(idToChange, messageContent, linewidth, color, dotColor, outlin
             if (letterTemp in globalStates.database) {
                 i = i + r;
 
-                globalStates.textTrimLength++;
+                textTrimLength++;
 
                 if (globalStates.database[letterTemp]["big"]["width"] === 7) {
                     console.log("ching");
-                    globalStates.textTrimLength++;
+                    textTrimLength++;
                 }
 
                 break;
@@ -105,7 +105,7 @@ function drawHRQR(idToChange, messageContent, linewidth, color, dotColor, outlin
     globalStates.line = 0;
 
     // here it needs to have the right size
-    globalStates.colums = globalStates.textTrimLength;
+    globalStates.colums = textTrimLength;
 
     // var countTwo = 1;
     globalStates.colums = Math.ceil(Math.sqrt(globalStates.colums * 2));
@@ -117,7 +117,7 @@ function drawHRQR(idToChange, messageContent, linewidth, color, dotColor, outlin
 
     const amountOfLetters = globalStates.colums * (globalStates.colums / 2);
 
-    while (globalStates.textTrimLength < amountOfLetters) {
+    while (textTrimLength < amountOfLetters) {
         globalStates.text = globalStates.text + randomLetter();
 
         globalStates.textTrimLength++;
