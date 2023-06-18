@@ -193,17 +193,16 @@
 
             function onCheckText() {
 
-                if(document.getElementById("checkbox").checked === true){
+                if(document.getElementById("readability").checked === true){
                     dotColor = true;
-
-                    document.getElementById("dotcolor1").style.visibility = "visible";
-                    document.getElementById("dotcolor2").style.visibility = "visible";
+                    document.getElementById("dotcolor").style.visibility = "visible";
+                    document.getElementById("dotcolor_cap").style.visibility = "visible";
 
                 }else {
 
                     dotColor = false;
-                    document.getElementById("dotcolor1").style.visibility = "hidden";
-                    document.getElementById("dotcolor2").style.visibility = "hidden";
+                    document.getElementById("dotcolor").style.visibility = "hidden";
+                    document.getElementById("dotcolor_cap").style.visibility = "hidden";
                 }
                 onInputText();
             }
@@ -227,7 +226,7 @@
                 else
                     contentHR= 'https://hrqr.org/?'+encodeURIComponent(document.getElementById("textContent").value)+"&"+encodeURI(hColor);
 
-                document.getElementById("text6").innerHTML = "Get a SVG Image of your code " +
+                document.getElementById("hint").innerHTML = "Get a SVG Image of your code " +
                     "<a "+
                         "style= 'text-decoration: underline;' "+
                         "download='data.svg' "+
@@ -326,15 +325,13 @@
                         <div>
                             <input
                                 type="checkbox"
-                                id="checkbox"
-                                name="dotColot"
-                                value="dotColor"
+                                id="readability"
                                 onchange="onCheckText()"
                                 tabindex="2"
                             />
                             Better Human Readability
                             <input
-                                id="dotcolor1"
+                                id="dotcolor"
                                 type="range"
                                 oninput="sliderUpdate(this.value)"
                                 value="0"
@@ -348,18 +345,20 @@
                                 "
                                 tabindex="3"
                             />
-                            <span id="dotcolor2" style="visibility: hidden;">Dot-Color</span>
+                            <span id="dotcolor_cap" style="visibility: hidden;">Dot-Color</span>
                         </div>
                     </div>
-                    <p>
-                        Use the
-                        <a href="https://itunes.apple.com/us/app/hrqr/id1020790145">iOS-App</a>
-                        or this
-                        <a href="/abc">Alphabet</a>
-                        to read your codes.
-                        <br/>
-                        The iOS App will handle messages starting with &quot;http://&quot; as links.
-                    </p>
+                    <div id="hint">
+                        <p>
+                            Use the
+                            <a href="https://itunes.apple.com/us/app/hrqr/id1020790145">iOS-App</a>
+                            or this
+                            <a href="/abc">Alphabet</a>
+                            to read your codes.
+                            <br/>
+                            The iOS App will handle messages starting with &quot;http://&quot; as links.
+                        </p>
+                    </div>
                 </div>
                 <div id="svgDiv"></div>
             </div>
