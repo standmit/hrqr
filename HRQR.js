@@ -16,7 +16,6 @@ var globalStates = {
     text: "",
     color: "#000000",
     colums: 0,
-    countingLine: 0,
     kubik: false,
     background: "#FFFFFF"
 };
@@ -138,7 +137,7 @@ function drawHRQR(idToChange, messageContent, linewidth, color, dotColor, outlin
 function writeLetters() {
     var letter = "";
     var textLength = globalStates.text.length;
-    globalStates.countingLine = 0;
+    var countingLine = 0;
     for (let i = 0; i < globalStates.text.length; i++) {
 
         letter = globalStates.text[i];
@@ -157,16 +156,16 @@ function writeLetters() {
             }
         }
 
-        if (globalStates.countingLine >= globalStates.colums) {
+        if (countingLine >= globalStates.colums) {
             globalStates.line++;
             globalStates.rowCounter = 0;
-            globalStates.countingLine = 0;
+            countingLine = 0;
         }
 
         if (letter === "\n" && globalStates.kubik === false) {
             globalStates.line++;
             globalStates.rowCounter = 0;
-            globalStates.countingLine = 0;
+            countingLine = 0;
         }
 
         const size = letterSize(i);
@@ -174,8 +173,7 @@ function writeLetters() {
 
         if (letter !== " " && globalStates.text[i + 1] !== " " && i + 1 < globalStates.text.length) {
             if (letter != undefined && globalStates.text[i + 1] != undefined) {
-
-                if (globalStates.countingLine >= globalStates.colums - 1) {
+                if (countingLine >= globalStates.colums - 1) {
                     // console.log("y");
                     if (i + globalStates.colums <= globalStates.text.length) {
                         if (letterSize(i + 1) === "small") {
@@ -217,7 +215,7 @@ function writeLetters() {
                     sideA = globalStates.database[letter]["big"].left;
                     countsize = globalStates.database[letter]["big"].width / 3;
                 }
-                globalStates.countingLine = globalStates.countingLine + countsize;
+                countingLine = countingLine + countsize;
             }
             for (let w = 0; w < sideA.length; w++) {
                 if (sideA[w] === 0) {
