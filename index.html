@@ -46,7 +46,16 @@
                     }
 
                     if( dotColor === false)
-                        drawHRQR("svgDiv",decodeURIComponent(decText[0]), 8, "#000000", dDotColor, 20, "#FFFFFF");
+                        drawHRQR(
+                            "svgDiv",
+                            decodeURIComponent(decText[0]),
+                            document.getElementById("colums_count").value,
+                            8,
+                            "#000000",
+                            dDotColor,
+                            20,
+                            "#FFFFFF"
+                        );
                     else {
                         var tempColor = "";
                         if( decodeURIComponent(decText[1]).length>3)
@@ -54,7 +63,16 @@
                         else
                             tempColor = "hsl("+ decodeURIComponent(decText[1])+",100%,30%)";
 
-                        drawHRQR("svgDiv", decodeURIComponent(decText[0]), 8, "#000000",tempColor, 20, "#FFFFFF");
+                        drawHRQR(
+                            "svgDiv",
+                            decodeURIComponent(decText[0]),
+                            document.getElementById("colums_count").value,
+                            8,
+                            "#000000",
+                            tempColor,
+                            20,
+                            "#FFFFFF"
+                        );
                     }
 
                     const dataHR = document.getElementById("svgDiv").innerHTML;
@@ -69,6 +87,7 @@
                             drawHRQR(
                                 "svgDiv",
                                 document.getElementById("textContent").value,
+                                document.getElementById("colums_count").value,
                                 8,
                                 "#000000",
                                 dDotColor,
@@ -79,6 +98,7 @@
                             drawHRQR(
                                 "svgDiv",
                                 document.getElementById("textContent").value,
+                                document.getElementById("colums_count").value,
                                 8,
                                 "#000000",
                                 dDotColorVisible,
@@ -213,9 +233,27 @@
                 msg =  msg.replace(/(\r\n|\n|\r)/gm,"");
 
                 if( dotColor === false)
-                    drawHRQR("svgDiv",msg, 8, "#000000", dDotColor, 20, "#FFFFFF");
+                    drawHRQR(
+                        "svgDiv",
+                        msg,
+                        document.getElementById("colums_count").value,
+                        8,
+                        "#000000",
+                        dDotColor,
+                        20,
+                        "#FFFFFF"
+                    );
                 else
-                    drawHRQR("svgDiv",msg, 8, "#000000", dDotColorVisible, 20, "#FFFFFF");
+                    drawHRQR(
+                        "svgDiv",
+                        msg,
+                        document.getElementById("colums_count").value,
+                        8,
+                        "#000000",
+                        dDotColorVisible,
+                        20,
+                        "#FFFFFF"
+                    );
 
                 const svgFile =   Base64.encode(document.getElementById("svgDiv").innerHTML);
 
@@ -321,6 +359,17 @@
                             oninput="onInputText()"
                             tabindex="1"
                         ></textarea>
+                        <div>
+                            Colums:
+                            <input
+                                id="colums_count"
+                                class="hrqr_size"
+                                type="number"
+                                min="2"
+                                value="2"
+                                onchange="onInputText()"
+                            />
+                        </div>
                         <div>
                             <input
                                 type="checkbox"

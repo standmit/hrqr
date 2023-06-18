@@ -141,3 +141,7 @@ body {
     border: 1px solid #c5c5c5;
     font-size: inherit;
 }
+
+.hrqr_size {
+    width: 50px;
+}

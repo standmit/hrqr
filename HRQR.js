@@ -16,14 +16,18 @@ var globalStates = {
     text: "",
     color: "#000000",
     colums: 0,
+    rows: 0,
     kubik: false,
     background: "#FFFFFF"
 };
 
-function getSize(minus) {
-    return (((globalStates.colums - 1) * 4) + 3) * globalStates.dotWidth - minus;
+function getWidth() {
+    return ((globalStates.colums * globalStates.dotWidth * 4)) + (2 * globalStates.left) - globalStates.dotWidth;
 }
 
+function getHeight() {
+    return ((globalStates.rows * globalStates.dotHeight * 8)) + (2 * globalStates.top) - globalStates.dotHeight;
+}
 
 function randomLetter() {
     return itob62(crc16(globalStates.text)).substring(0, 1);
@@ -36,7 +40,7 @@ function finalizeCanvas(idToChange) {
 
 // start canvas
 
-function drawHRQR(idToChange, messageContent, linewidth, color, dotColor, outline, background) {
+function drawHRQR(idToChange, messageContent, cols, linewidth, color, dotColor, outline, background) {
 
     if (linewidth === undefined) {
         linewidth = 8;
@@ -105,29 +109,20 @@ function drawHRQR(idToChange, messageContent, linewidth, color, dotColor, outlin
     globalStates.line = 0;
 
     // here it needs to have the right size
-    globalStates.colums = textTrimLength;
+    globalStates.colums = parseInt(cols);
+    globalStates.rows = Math.ceil(textTrimLength / globalStates.colums);
+    textTrimLength = textTrimLength % globalStates.colums;
 
     // var countTwo = 1;
-    globalStates.colums = Math.ceil(Math.sqrt(globalStates.colums * 2));
-
-    if (globalStates.colums % 2) {
-        globalStates.colums = globalStates.colums + 1;
-        //countTwo = 1;
-    }
-
-    const amountOfLetters = globalStates.colums * (globalStates.colums / 2);
-
-    while (textTrimLength < amountOfLetters) {
-        globalStates.text = globalStates.text + randomLetter();
-
-        globalStates.textTrimLength++;
-
-    }
-
-    const rowColSize = ((globalStates.colums * globalStates.dotWidth * 4)) + (2 * globalStates.left) - globalStates.width;
 
 
-    globalStates.htmlText = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width = "' + rowColSize + 'px" height = "' + rowColSize + 'px"  style="background: ' + globalStates.background + '">\n';
+    if (textTrimLength > 0)
+        while (textTrimLength < globalStates.colums) {
+            globalStates.text = globalStates.text + randomLetter();
+            textTrimLength++;
+        }
+
+    globalStates.htmlText = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width = "' + getWidth() + 'px" height = "' + getHeight() + 'px"  style="background: ' + globalStates.background + '">\n';
 
     writeLetters();
     finalizeCanvas(idToChange);
