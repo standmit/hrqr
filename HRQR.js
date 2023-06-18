@@ -185,7 +185,6 @@ function writeLetters() {
                             // renderConnector(letter, globalStates.text[i + globalStates.colums], size, true, true);
 
                             renderConnector(letter, letter, size, true, true);
-
                         } else {
                             // renderConnector(letter, globalStates.text[i + globalStates.colums], size, false, true);
 
