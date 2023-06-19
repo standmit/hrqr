@@ -175,26 +175,16 @@ function writeLetters() {
             if (letter != undefined && globalStates.text[i + 1] != undefined) {
                 if (countingLine >= globalStates.colums - 1) {
                     // console.log("y");
-                    if (i + globalStates.colums <= globalStates.text.length) {
-                        if (letterSize(i + 1) === "small") {
-
-                            // renderConnector(letter, globalStates.text[i + globalStates.colums], size, true, true);
-
-                            renderConnector(letter, letter, size, true, true);
-                        } else {
-                            // renderConnector(letter, globalStates.text[i + globalStates.colums], size, false, true);
-
-                            renderConnector(letter, letter, size, false, true);
-                        }
+                    let j = i + globalStates.colums;
+                    while (j <= globalStates.text.length) {
+                        if (globalStates.text[j] in globalStates.database)
+                            break;
+                        j++;
                     }
-                } else {
-                    //console.log("x");
-                    if (letterSize(i + 1) === "small") {
-                        renderConnector(letter, globalStates.text[i + 1], size, true, false);
-                    } else {
-                        renderConnector(letter, globalStates.text[i + 1], size, false, false);
-                    }
-                }
+                    if (j <= globalStates.text.length)
+                        renderConnector(letter, globalStates.text[j], size, letterSize(j), true);
+                } else
+                    renderConnector(letter, globalStates.text[i + 1], size, letterSize(i+1), false);
             }
         }
         // add fillings for the last letters
@@ -234,16 +224,23 @@ function writeLetters() {
 function letterSize(i) {
     var size = "big";
     // this is all nessesary to figure out if letter should be small
-    if (i - 1 >= 0 && i + 2 <= globalStates.text.length
-        && (globalStates.text[i] in globalStates.database)
-        && (globalStates.text[i - 1] in globalStates.database)
-        && (globalStates.text[i + 1] in globalStates.database)) {
-        if (globalStates.text[i].length == 1
-            && (globalStates.database[globalStates.text[i - 1]].big.right[0] == 1
-            || globalStates.database[globalStates.text[i - 1]].big.right[0] == 0)
-            && (globalStates.database[globalStates.text[i + 1]].big.left[0] == 1
-            || globalStates.database[globalStates.text[i + 1]].big.left[0] == 0)
-            && ("small" in globalStates.database[globalStates.text[i]])
+    if (
+            i - 1 >= 0 && i + 2 <= globalStates.text.length
+            &&
+            (globalStates.text[i] in globalStates.database)
+            &&
+            (globalStates.text[i - 1] in globalStates.database)
+            &&
+            (globalStates.text[i + 1] in globalStates.database)
+    ) {
+        if (
+                globalStates.text[i].length == 1
+                &&
+                globalStates.database[globalStates.text[i - 1]].big.right[0] < 2
+                &&
+                globalStates.database[globalStates.text[i + 1]].big.left[0] < 2
+                &&
+                ("small" in globalStates.database[globalStates.text[i]])
         ) {
             size = "small";
         }
@@ -251,36 +248,34 @@ function letterSize(i) {
     return size;
 }
 
-function renderConnector(letterA, letterB, size, nextSize, possition) {
-
+function renderConnector(letterA, letterB, sizeA, sizeB, possition) {
     if (letterA in globalStates.database && letterB in globalStates.database) {
         var grade = [];
         var gradeA = [];
         var gradeB = [];
 
         if (possition === true) {
-            if (size in globalStates.database[letterA]) {
-                gradeA = globalStates.database[letterA][size].bottom;
+            if (sizeA in globalStates.database[letterA]) {
+                gradeA = globalStates.database[letterA][sizeA].bottom;
             } else {
                 gradeA = globalStates.database[letterA]["big"].bottom;
             }
 
-            if (size in globalStates.database[letterB]) {
-                gradeB = globalStates.database[letterB][size].top;
+            if (sizeB in globalStates.database[letterB]) {
+                gradeB = globalStates.database[letterB][sizeB].top;
             } else {
                 gradeB = globalStates.database[letterB]["big"].top;
             }
         }
         else {
-
-            if (size in globalStates.database[letterA]) {
-                gradeA = globalStates.database[letterA][size].right;
+            if (sizeA in globalStates.database[letterA]) {
+                gradeA = globalStates.database[letterA][sizeA].right;
             } else {
                 gradeA = globalStates.database[letterA]["big"].right;
             }
 
-            if (size in globalStates.database[letterB]) {
-                gradeB = globalStates.database[letterB][size].left;
+            if (sizeB in globalStates.database[letterB]) {
+                gradeB = globalStates.database[letterB][sizeB].left;
             } else {
                 gradeB = globalStates.database[letterB]["big"].left;
             }
@@ -302,12 +297,14 @@ function renderConnector(letterA, letterB, size, nextSize, possition) {
             if (grade[i] <= size2) {
                 size2 = grade[i];
                 finalPossition = i;
-                if ((gradeA[i] === 0 && gradeB[i] != 9) || (gradeA[i] === 0 && gradeB[i] === 0)) break;
+                if (
+                        (gradeA[i] === 0 && gradeB[i] != 9)
+                        ||
+                        (gradeA[i] != 9 && gradeB[i] === 0)
+                )
+                    break;
             }
         }
-
-        if (nextSize === true) finalPossition = 0;
-
 
         if (possition === true) {
             renderDot(1, finalPossition, true);
@@ -323,16 +320,16 @@ function renderDot(vertical, horizontal, possition) {
     var xx, yy;
 
     if (possition) {
-        xx = globalStates.top + (globalStates.dotHeight * 7 + (globalStates.line * ((globalStates.pixelsPerLetter + 1) * globalStates.dotHeight)));
-        yy = globalStates.left + (globalStates.dotWidth * (globalStates.rowCounter - horizontal - 2)); // - vertical
+        yy = globalStates.top + (globalStates.dotHeight * 7 + (globalStates.line * ((globalStates.pixelsPerLetter + 1) * globalStates.dotHeight)));
+        xx = globalStates.left + (globalStates.rowCounter - 4 + horizontal) * globalStates.dotWidth;
     }
     else {
-        xx = globalStates.top + (globalStates.dotHeight * horizontal + (globalStates.line * ((globalStates.pixelsPerLetter + 1) * globalStates.dotHeight)));
-        yy = globalStates.left + (globalStates.dotWidth * (globalStates.rowCounter - vertical));
+        yy = globalStates.top + (globalStates.dotHeight * horizontal + (globalStates.line * ((globalStates.pixelsPerLetter + 1) * globalStates.dotHeight)));
+        xx = globalStates.left + (globalStates.dotWidth * (globalStates.rowCounter - vertical));
     }
 
     globalStates.htmlText =
-        globalStates.htmlText + '<rect x="' + yy + '" y="' + xx +
+        globalStates.htmlText + '<rect x="' + xx + '" y="' + yy +
         '" width="' + globalStates.dotWidth +
         '" height="' + globalStates.dotHeight +
         '" style="fill:' + globalStates.dotColor +
