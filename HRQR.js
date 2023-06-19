@@ -287,7 +287,6 @@ function renderConnector(letterA, letterB, size, nextSize, possition) {
         }
 
         var finalPossition = 0;
-        //  var pokeIn = false;
 
         for (var w = 0; w < gradeA.length; w++) {
             var lA = gradeA[w];
