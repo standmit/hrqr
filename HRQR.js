@@ -332,10 +332,11 @@ function renderDot(vertical, horizontal, possition) {
     }
 
     globalStates.htmlText =
-        globalStates.htmlText + '<rect x="' + yy + '" y="' + xx + '" width="' +
-        globalStates.dotWidth + '" height="' +
-        globalStates.dotHeight + '" style="fill:' +
-        globalStates.dotColor + '" />\n';
+        globalStates.htmlText + '<rect x="' + yy + '" y="' + xx +
+        '" width="' + globalStates.dotWidth +
+        '" height="' + globalStates.dotHeight +
+        '" style="fill:' + globalStates.dotColor +
+        '" />\n';
 }
 
 function renderLetters(thisLetter, size) {
